@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Grant the new 'oauthloginprovider access info' permission to roles that
+ * previously had 'access content' so we don't break existing deployments.
+ */
+function oauthloginprovider_update_7001() {
+  $roles = user_roles(FALSE, 'access content');
+  foreach ($roles as $rid => $name) {
+    user_role_grant_permission($rid, array('oauthloginprovider access info'));
+  }
+}
